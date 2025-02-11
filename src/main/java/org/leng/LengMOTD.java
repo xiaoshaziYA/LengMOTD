@@ -2,8 +2,8 @@ package org.leng;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.leng.commands.CommandHandler;
 import org.leng.listeners.PlayerJoinListener;
 
@@ -42,6 +42,16 @@ public class LengMOTD extends JavaPlugin {
         if (!iconFolder.exists()) {
             iconFolder.mkdirs();
             getLogger().info("§a[LengMOTD] 已创建图标文件夹: " + iconFolder.getAbsolutePath());
+        }
+
+        // Check if icon file exists
+        String iconPath = config.getString("icon", "icon/icon.png");
+        File iconFile = new File(getDataFolder(), iconPath);
+        if (!iconFile.exists()) {
+            getLogger().warning("§c[LengMOTD] 图标文件不存在: " + iconFile.getAbsolutePath());
+            getLogger().warning("§c[LengMOTD] 请将图标文件放在插件的 icon 文件夹中，并确保路径正确。");
+        } else {
+            getLogger().info("§a[LengMOTD] 图标文件已加载: " + iconFile.getAbsolutePath());
         }
 
         // Log plugin enable message
