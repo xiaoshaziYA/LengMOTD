@@ -2,11 +2,12 @@ package org.leng;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.entity.Player;
 import org.leng.commands.CommandHandler;
 import org.leng.listeners.PlayerJoinListener;
 
+import java.io.File;
 import java.util.List;
 import java.util.Random;
 
@@ -35,6 +36,13 @@ public class LengMOTD extends JavaPlugin {
 
         // Start MOTD update task
         startMotdUpdateTask();
+
+        // Check and create icon folder if it doesn't exist
+        File iconFolder = new File(getDataFolder(), "icon");
+        if (!iconFolder.exists()) {
+            iconFolder.mkdirs();
+            getLogger().info("§a[LengMOTD] 已创建图标文件夹: " + iconFolder.getAbsolutePath());
+        }
 
         // Log plugin enable message
         getLogger().info("§a[LengMOTD] 已启用");
